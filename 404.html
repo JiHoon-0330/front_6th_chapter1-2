@@ -10,7 +10,7 @@
     const keepSegments = 1;
     const basePathname = location.pathname.split("/").slice(0,keepSegments+1).join("/");
     const url = new URL(basePathname, location.origin);
-    history.replaceState({},"", url);
+    location.replace(url);
   </script>
 </body>
 </html>

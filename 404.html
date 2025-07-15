@@ -1,16 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <script type="text/javascript">
-    const keepSegments = 1;
-    const basePathname = location.pathname.split("/").slice(0,keepSegments+1).join("/");
-    const url = new URL(basePathname, location.origin);
-    location.replace(url);
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      // GitHub Pages 404 페이지 라우팅 스크립트
+      // 현재 경로를 쿼리 파라미터로 변환하여 index.html로 리다이렉트
+
+      (function () {
+        const GITHUB_REPO_SEGMENTS = 1; // GitHub 저장소 이름이 URL 경로의 몇 번째 세그먼트인지 (예: /사용자명/저장소명/)
+        const currentUrl = new URL(window.location.href);
+
+        // 현재 경로의 기본 부분 (예: "/저장소명/")
+        const basePathSegments = currentUrl.pathname.split("/").slice(0, GITHUB_REPO_SEGMENTS + 1);
+        const newPath = basePathSegments.join("/") + "/";
+
+        // index.html로 넘겨줄 원래 경로를 쿼리 파라미터로 만듦
+        const originalPath = currentUrl.pathname.slice(newPath.length);
+
+        // 새로운 URL 객체 생성
+        const newUrl = new URL(newPath, currentUrl.origin); // 예: "https://사용자명.github.io/저장소명/"
+
+        // 쿼리 파라미터로 원래 경로를 추가 (replace는 '&'를 '~and~'로 변환)
+        newUrl.searchParams.set("/", originalPath.replace(/&/g, "~and~"));
+
+        // 기존 쿼리 파라미터와 해시를 새 URL에 병합
+        // URLSearchParams를 사용하여 기존 쿼리를 가져와 새 쿼리 파라미터에 추가
+        for (const [key, value] of currentUrl.searchParams.entries()) {
+          newUrl.searchParams.set(key, value.replace(/&/g, "~and~"));
+        }
+        newUrl.hash = currentUrl.hash;
+
+        // 리다이렉트 실행
+        window.location.replace(newUrl.href);
+      })();
+    </script>
+  </body>
 </html>

@@ -1,29 +1,26 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <script type="text/javascript">
-      // GitHub Pages 404 페이지 라우팅 스크립트
-      // 현재 경로를 쿼리 파라미터로 변환하여 index.html로 리다이렉트
-
-      (function () {
-        const GITHUB_REPO_SEGMENTS = 1; // GitHub 저장소 이름이 URL 경로의 몇 번째 세그먼트인지 (예: /사용자명/저장소명/)
-
-        // 현재 경로의 기본 부분 (예: "/저장소명")
-        const basePathname = location.pathname
-          .split("/")
-          .slice(0, GITHUB_REPO_SEGMENTS + 1)
-          .join("/");
-        const url = new URL(basePathname, location.origin);
-        url.search = `?404=${encodeURIComponent(location.href.replace(location.origin, ""))}`;
-        history.replaceState(null, "", url);
-        
-        // location.replace(url);
-      })();
+    <title>상품 쇼핑몰</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#3b82f6",
+              secondary: "#6b7280",
+            },
+          },
+        },
+      };
     </script>
+    <script type="module" crossorigin src="/front_6th_chapter1-2/assets/main-DCxhA9Kz.js"></script>
+    <link rel="stylesheet" crossorigin href="/front_6th_chapter1-2/assets/main-C3vnCDW9.css">
+  </head>
+  <body class="bg-gray-50">
+    <div id="root"></div>
   </body>
 </html>

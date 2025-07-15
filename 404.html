@@ -20,7 +20,9 @@
           .join("/");
         const url = new URL(basePathname, location.origin);
         url.search = `?404=${encodeURIComponent(location.href.replace(location.origin, ""))}`;
-        location.replace(url);
+        history.replaceState(null, "", url);
+        
+        // location.replace(url);
       })();
     </script>
   </body>

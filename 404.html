@@ -19,7 +19,7 @@
           .slice(0, GITHUB_REPO_SEGMENTS + 1)
           .join("/");
         const url = new URL(basePathname, location.origin);
-        url.search = `?404=${encodeURIComponent(location.href)}`;
+        url.search = `?404=${encodeURIComponent(location.href.replace(location.origin, ""))}`;
         location.replace(url);
       })();
     </script>
